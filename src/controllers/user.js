@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const {config} = require('../config/config');
 
 function createToken(user) {
     return jwt.sign({ id: user.id, email: user.email },
@@ -10,6 +10,7 @@ function createToken(user) {
 
 const signIn = async(req, res) => {
     const { email, password } = req.body;
+    console.log(email,password);
     const user = await User.findOne({ email: email });
     if (!user) {
         return res.json({ value: false, message: 'The user does not exists' });
